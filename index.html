@@ -1,0 +1,1182 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DataPulse ｜ 電商數據專題首頁</title>
+    <style>
+      :root {
+        --bg: #07131e;
+        --bg-2: #0d1f2d;
+        --panel: rgba(15, 28, 40, 0.82);
+        --panel-strong: rgba(11, 24, 35, 0.96);
+        --card: rgba(19, 39, 54, 0.85);
+        --stroke: rgba(149, 177, 201, 0.18);
+        --text: #edf6ff;
+        --muted: #9bb6c7;
+        --primary: #6ee7ff;
+        --primary-2: #7c9cff;
+        --green: #55f2b7;
+        --gold: #ffc857;
+        --pink: #ff7ecf;
+        --red: #ff6b7d;
+        --shadow: 0 24px 60px rgba(6, 18, 28, 0.55);
+      }
+
+      * { box-sizing: border-box; }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        margin: 0;
+        font-family: "Segoe UI", "Microsoft JhengHei", sans-serif;
+        background:
+          radial-gradient(circle at top left, rgba(110, 231, 255, 0.14), transparent 30%),
+          radial-gradient(circle at bottom right, rgba(124, 156, 255, 0.12), transparent 28%),
+          linear-gradient(180deg, var(--bg) 0%, #0a1520 100%);
+        color: var(--text);
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      .container {
+        width: min(1200px, calc(100% - 32px));
+        margin: 0 auto;
+      }
+
+      .topbar {
+        position: sticky;
+        top: 0;
+        z-index: 20;
+        backdrop-filter: blur(12px);
+        background: rgba(7, 19, 30, 0.52);
+        border-bottom: 1px solid var(--stroke);
+      }
+
+      .nav {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        min-height: 76px;
+      }
+
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+      }
+
+      .brand-mark {
+        width: 34px;
+        height: 34px;
+        border-radius: 12px;
+        background: linear-gradient(135deg, var(--primary), var(--primary-2));
+        position: relative;
+        box-shadow: 0 10px 24px rgba(110, 231, 255, 0.35);
+      }
+
+      .brand-mark::before,
+      .brand-mark::after {
+        content: "";
+        position: absolute;
+        inset: 7px;
+        border-radius: 8px;
+        border: 2px solid rgba(255,255,255,0.9);
+      }
+
+      .brand-mark::after {
+        inset: 12px 10px 10px 12px;
+        border-top: 0;
+        border-left: 0;
+        transform: rotate(45deg);
+      }
+
+      .menu {
+        display: flex;
+        align-items: center;
+        gap: 28px;
+        color: var(--muted);
+        font-size: 0.95rem;
+      }
+
+      .menu a:hover {
+        color: var(--text);
+      }
+
+      .nav-cta {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        min-height: 44px;
+        padding: 0 22px;
+        border-radius: 12px;
+        border: 1px solid rgba(255,255,255,0.1);
+        font-weight: 600;
+        transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+      }
+
+      .btn:hover {
+        transform: translateY(-1px);
+      }
+
+      .btn-primary {
+        background: linear-gradient(135deg, var(--primary), var(--primary-2));
+        color: #041722;
+        box-shadow: 0 18px 30px rgba(110, 231, 255, 0.3);
+        border: none;
+      }
+
+      .btn-secondary {
+        background: rgba(255,255,255,0.02);
+        color: var(--text);
+      }
+
+      .hero {
+        padding: 72px 0 40px;
+      }
+
+      .hero-grid {
+        display: grid;
+        grid-template-columns: 1.1fr 0.9fr;
+        gap: 36px;
+        align-items: center;
+      }
+
+      .eyebrow {
+        display: inline-flex;
+        align-items: center;
+        padding: 8px 12px;
+        border-radius: 999px;
+        border: 1px solid rgba(110, 231, 255, 0.25);
+        background: rgba(110, 231, 255, 0.06);
+        color: var(--primary);
+        font-size: 0.76rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      h1 {
+        margin: 18px 0 16px;
+        font-size: clamp(2.8rem, 5vw, 5rem);
+        line-height: 1.02;
+        letter-spacing: -0.06em;
+      }
+
+      .lead {
+        max-width: 560px;
+        color: var(--muted);
+        font-size: 1.06rem;
+        line-height: 1.8;
+        margin: 0 0 28px;
+      }
+
+      .hero-actions {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        margin-bottom: 28px;
+      }
+
+      .mini-stats {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 18px;
+      }
+
+      .mini-stat {
+        min-width: 135px;
+        background: rgba(255,255,255,0.02);
+        border: 1px solid var(--stroke);
+        border-radius: 16px;
+        padding: 14px 16px;
+      }
+
+      .mini-stat strong {
+        font-size: 1.4rem;
+        display: block;
+      }
+
+      .mini-stat span {
+        color: var(--muted);
+        font-size: 0.82rem;
+      }
+
+      .hero-visual {
+        position: relative;
+        min-height: 540px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .dashboard {
+        position: relative;
+        width: min(100%, 520px);
+        border-radius: 28px;
+        background: linear-gradient(180deg, rgba(11, 24, 35, 0.96), rgba(14, 27, 39, 0.85));
+        border: 1px solid var(--stroke);
+        box-shadow: var(--shadow);
+        padding: 20px 18px 18px;
+      }
+
+      .dash-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        color: var(--muted);
+        font-size: 0.84rem;
+        margin-bottom: 18px;
+      }
+
+      .traffic-dots {
+        display: flex;
+        gap: 8px;
+      }
+
+      .traffic-dots span {
+        width: 10px;
+        height: 10px;
+        display: inline-block;
+        border-radius: 50%;
+      }
+
+      .traffic-dots span:nth-child(1) { background: var(--red); }
+      .traffic-dots span:nth-child(2) { background: var(--gold); }
+      .traffic-dots span:nth-child(3) { background: var(--green); }
+
+      .figure-box {
+        background: rgba(11, 23, 32, 0.9);
+        border: 1px solid var(--stroke);
+        border-radius: 22px;
+        padding: 18px 16px 12px;
+      }
+
+      .figure-top {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 16px;
+      }
+
+      .figure-top .label {
+        color: var(--muted);
+        font-size: 0.8rem;
+      }
+
+      .chip {
+        padding: 7px 10px;
+        border-radius: 999px;
+        font-size: 0.75rem;
+        border: 1px solid rgba(85, 242, 183, 0.2);
+        background: rgba(85, 242, 183, 0.08);
+        color: var(--green);
+      }
+
+      .chart {
+        width: 100%;
+        height: 170px;
+        border-radius: 18px;
+        display: block;
+      }
+
+      .data-row {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 12px;
+        margin-top: 18px;
+      }
+
+      .metric-card {
+        background: rgba(255,255,255,0.02);
+        border: 1px solid var(--stroke);
+        border-radius: 16px;
+        padding: 14px 12px;
+      }
+
+      .metric-card .name {
+        color: var(--muted);
+        font-size: 0.72rem;
+      }
+
+      .metric-card .value {
+        margin-top: 8px;
+        font-size: 1.35rem;
+        font-weight: 700;
+      }
+
+      .metric-card .delta {
+        margin-top: 6px;
+        font-size: 0.72rem;
+        color: var(--green);
+      }
+
+      .floating-card {
+        position: absolute;
+        background: rgba(12, 22, 33, 0.92);
+        border: 1px solid var(--stroke);
+        border-radius: 18px;
+        box-shadow: var(--shadow);
+        padding: 14px 16px;
+      }
+
+      .floating-card.left {
+        left: -8px;
+        bottom: 80px;
+      }
+
+      .floating-card.right {
+        right: -6px;
+        top: 120px;
+      }
+
+      .floating-card .small-label {
+        color: var(--muted);
+        font-size: 0.72rem;
+      }
+
+      .floating-card strong {
+        display: block;
+        margin-top: 8px;
+        font-size: 1.6rem;
+      }
+
+      .bar-stack {
+        margin-top: 8px;
+        display: flex;
+        align-items: end;
+        gap: 6px;
+        height: 56px;
+      }
+
+      .bar-stack span {
+        display: inline-block;
+        width: 12px;
+        border-radius: 999px 999px 0 0;
+        background: linear-gradient(180deg, var(--primary), var(--primary-2));
+      }
+
+      .section {
+        padding: 40px 0 10px;
+      }
+
+      .section-head {
+        display: flex;
+        justify-content: space-between;
+        align-items: end;
+        gap: 18px;
+        margin-bottom: 22px;
+      }
+
+      .section-head h2 {
+        margin: 0;
+        font-size: clamp(1.8rem, 3vw, 2.7rem);
+      }
+
+      .section-head p {
+        margin: 8px 0 0;
+        color: var(--muted);
+      }
+
+      .link-btn {
+        color: var(--primary);
+        font-weight: 600;
+      }
+
+      .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0,1fr));
+        gap: 18px;
+      }
+
+      .panel {
+        background: rgba(255,255,255,0.02);
+        border: 1px solid var(--stroke);
+        border-radius: 24px;
+        padding: 22px 20px;
+      }
+
+      .stat-tile {
+        min-height: 180px;
+      }
+
+      .stat-tile .top {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 18px;
+        color: var(--muted);
+        font-size: 0.8rem;
+      }
+
+      .stat-tile .big {
+        font-size: clamp(2rem, 2.5vw, 2.8rem);
+        font-weight: 700;
+        letter-spacing: -0.04em;
+      }
+
+      .stat-tile .delta {
+        margin-top: 10px;
+        color: var(--green);
+        font-size: 0.8rem;
+      }
+
+      .spark {
+        margin-top: 18px;
+        display: flex;
+        align-items: end;
+        gap: 6px;
+        height: 52px;
+      }
+
+      .spark span {
+        display: block;
+        flex: 1;
+        border-radius: 999px 999px 0 0;
+        background: linear-gradient(180deg, rgba(110, 231, 255, 0.95), rgba(124, 156, 255, 0.25));
+      }
+
+      .content-grid {
+        display: grid;
+        grid-template-columns: 1.15fr 0.85fr;
+        gap: 22px;
+        margin-top: 22px;
+      }
+
+      .overview-panel {
+        padding: 22px;
+      }
+
+      .overview-panel .panel-head {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        color: var(--muted);
+        margin-bottom: 18px;
+      }
+
+      .device-list {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0,1fr));
+        gap: 16px;
+      }
+
+      .device-item {
+        background: rgba(255,255,255,0.02);
+        border: 1px solid var(--stroke);
+        border-radius: 18px;
+        padding: 16px;
+      }
+
+      .device-item strong {
+        display: block;
+        font-size: 1.65rem;
+        margin-top: 8px;
+      }
+
+      .device-item .muted {
+        color: var(--muted);
+        font-size: 0.78rem;
+      }
+
+      .circle-wrap {
+        position: relative;
+        width: 220px;
+        height: 220px;
+        margin: 20px auto 10px;
+      }
+
+      .circle-wrap svg {
+        width: 220px;
+        height: 220px;
+        transform: rotate(-90deg);
+      }
+
+      .circle-track {
+        fill: none;
+        stroke: rgba(255,255,255,0.08);
+        stroke-width: 12;
+      }
+
+      .circle-progress {
+        fill: none;
+        stroke: url(#gradientRing);
+        stroke-width: 12;
+        stroke-linecap: round;
+        stroke-dasharray: 440;
+        stroke-dashoffset: 110;
+      }
+
+      .circle-center {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .circle-center strong {
+        font-size: 2.3rem;
+      }
+
+      .circle-center span {
+        color: var(--muted);
+      }
+
+      .list-block {
+        display: grid;
+        gap: 12px;
+        margin-top: 18px;
+      }
+
+      .list-item {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background: rgba(255,255,255,0.02);
+        border: 1px solid var(--stroke);
+        border-radius: 14px;
+        padding: 12px 14px;
+      }
+
+      .list-item .meta {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+
+      .avatar {
+        width: 38px;
+        height: 38px;
+        border-radius: 12px;
+        display: grid;
+        place-items: center;
+        font-size: 0.8rem;
+        font-weight: 700;
+        color: #031521;
+      }
+
+      .avatar.a { background: linear-gradient(135deg, var(--green), #89f7d3); }
+      .avatar.b { background: linear-gradient(135deg, var(--primary), var(--primary-2)); }
+      .avatar.c { background: linear-gradient(135deg, var(--pink), #ffa7d6); }
+
+      .list-item em {
+        color: var(--muted);
+        font-style: normal;
+      }
+
+      .products {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0,1fr));
+        gap: 18px;
+        margin-top: 22px;
+      }
+
+      .product-card {
+        overflow: hidden;
+      }
+
+      .product-visual {
+        height: 220px;
+        border-radius: 18px 18px 0 0;
+        position: relative;
+        background: radial-gradient(circle at top left, rgba(255,255,255,0.28), transparent 22%), linear-gradient(135deg, #152e3d, #0c1d29);
+      }
+
+      .product-visual::before {
+        content: "";
+        position: absolute;
+        width: 120px;
+        height: 120px;
+        border-radius: 26px;
+        background: linear-gradient(135deg, rgba(110, 231, 255, 0.8), rgba(124, 156, 255, 0.15));
+        left: 50%;
+        top: 52%;
+        transform: translate(-50%, -50%) rotate(18deg);
+        box-shadow: 0 18px 35px rgba(82, 137, 255, 0.28);
+      }
+
+      .product-visual::after {
+        content: "";
+        position: absolute;
+        width: 80px;
+        height: 80px;
+        border-radius: 18px;
+        border: 3px solid rgba(255,255,255,0.7);
+        left: 50%;
+        top: 52%;
+        transform: translate(-50%, -50%) rotate(18deg);
+      }
+
+      .product-body {
+        padding: 18px 18px 20px;
+      }
+
+      .tag-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 8px;
+        margin-bottom: 10px;
+      }
+
+      .badge {
+        display: inline-flex;
+        align-items: center;
+        padding: 6px 10px;
+        border-radius: 999px;
+        font-size: 0.72rem;
+        background: rgba(110, 231, 255, 0.08);
+        color: var(--primary);
+        border: 1px solid rgba(110, 231, 255, 0.18);
+      }
+
+      .product-body h3 {
+        margin: 0 0 8px;
+        font-size: 1.2rem;
+      }
+
+      .meta-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-top: 16px;
+        color: var(--muted);
+      }
+
+      .price {
+        font-size: 1.5rem;
+        color: var(--text);
+        font-weight: 700;
+      }
+
+      .cta-banner {
+        margin-top: 28px;
+        display: grid;
+        grid-template-columns: 1.2fr 0.8fr;
+        gap: 18px;
+        padding: 28px 24px;
+        border: 1px solid var(--stroke);
+        background: linear-gradient(135deg, rgba(13, 31, 45, 0.9), rgba(17, 26, 39, 0.8));
+        border-radius: 28px;
+      }
+
+      .cta-banner h3 {
+        margin: 12px 0 8px;
+        font-size: clamp(1.6rem, 3vw, 2.7rem);
+        letter-spacing: -0.04em;
+      }
+
+      .cta-banner p {
+        color: var(--muted);
+        margin: 0 0 18px;
+        line-height: 1.7;
+      }
+
+      .cta-side {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .mini-graph {
+        width: 100%;
+        max-width: 340px;
+        border-radius: 20px;
+        background: rgba(255,255,255,0.02);
+        border: 1px solid var(--stroke);
+        padding: 16px;
+      }
+
+      .mini-graph svg {
+        width: 100%;
+        height: 160px;
+        display: block;
+      }
+
+      footer {
+        padding: 28px 0 60px;
+        color: var(--muted);
+        font-size: 0.9rem;
+      }
+
+      @media (max-width: 960px) {
+        .hero-grid,
+        .content-grid,
+        .cta-banner,
+        .stats-grid,
+        .products {
+          grid-template-columns: 1fr;
+        }
+
+        .menu {
+          display: none;
+        }
+
+        .hero-visual {
+          min-height: 420px;
+        }
+      }
+
+      @media (max-width: 640px) {
+        .nav {
+          padding: 12px 0;
+        }
+
+        .nav-cta {
+          gap: 8px;
+        }
+
+        .btn {
+          padding: 0 14px;
+          font-size: 0.84rem;
+        }
+
+        .hero {
+          padding-top: 44px;
+        }
+
+        .device-list {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="container nav">
+        <div class="brand" aria-label="DataPulse 品牌">
+          <span class="brand-mark" aria-hidden="true"></span>
+          <span>DATAPULSE</span>
+        </div>
+
+        <nav class="menu" aria-label="主選單">
+          <a href="#overview">概覽</a>
+          <a href="#insights">洞察</a>
+          <a href="#products">商品</a>
+          <a href="#campaign">行銷</a>
+          <a href="#report">報表</a>
+        </nav>
+
+        <div class="nav-cta">
+          <a href="#report" class="btn btn-secondary">查看報表</a>
+          <a href="#campaign" class="btn btn-primary">立即體驗</a>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="container hero-grid">
+          <div>
+            <span class="eyebrow">E-commerce Analytics</span>
+            <h1>內容轉化，<br />讓每一筆流量都值錢。</h1>
+            <p class="lead">
+              透過直播與影片內容的整合數據洞察，掌握購買行為、廣告成效與商品熱度，
+              協助團隊快速優化每一個營銷決策，讓業績增長更穩定。
+            </p>
+
+            <div class="hero-actions">
+              <a href="#campaign" class="btn btn-primary">打造成長方案</a>
+              <a href="#overview" class="btn btn-secondary">觀看儀表板</a>
+            </div>
+
+            <div class="mini-stats">
+              <div class="mini-stat">
+                <strong>2.4M</strong>
+                <span>本月曝光</span>
+              </div>
+              <div class="mini-stat">
+                <strong>8.7%</strong>
+                <span>轉化增長</span>
+              </div>
+              <div class="mini-stat">
+                <strong>NT$ 3.2M</strong>
+                <span>營收提升</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="hero-visual" aria-label="電商數據儀表板示意">
+            <div class="dashboard">
+              <div class="dash-header">
+                <div class="traffic-dots" aria-hidden="true">
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                </div>
+                <span>2026 • GMV Overview</span>
+              </div>
+
+              <div class="figure-box">
+                <div class="figure-top">
+                  <div class="label">每日營收趨勢</div>
+                  <div class="chip">+18.4%</div>
+                </div>
+
+                <svg class="chart" viewBox="0 0 420 170" preserveAspectRatio="none" aria-hidden="true">
+                  <defs>
+                    <linearGradient id="lineGradient" x1="0%" x2="100%" y1="0%" y2="0%">
+                      <stop offset="0%" stop-color="#6ee7ff"/>
+                      <stop offset="100%" stop-color="#7c9cff"/>
+                    </linearGradient>
+                  </defs>
+                  <path d="M0,140 C40,110, 70,150, 110,115 S190,80, 225,92 S290,50, 330,68 S390,30, 420,42 L420,170 L0,170 Z" fill="rgba(110,231,255,0.08)"></path>
+                  <path d="M0,140 C40,110, 70,150, 110,115 S190,80, 225,92 S290,50, 330,68 S390,30, 420,42" fill="none" stroke="url(#lineGradient)" stroke-width="4" stroke-linecap="round"></path>
+                </svg>
+
+                <div class="data-row">
+                  <div class="metric-card">
+                    <div class="name">購買量</div>
+                    <div class="value">18.4K</div>
+                    <div class="delta">▲ 11.2%</div>
+                  </div>
+                  <div class="metric-card">
+                    <div class="name">客單價</div>
+                    <div class="value">NT$ 1,280</div>
+                    <div class="delta">▲ 7.9%</div>
+                  </div>
+                  <div class="metric-card">
+                    <div class="name">回購率</div>
+                    <div class="value">36.8%</div>
+                    <div class="delta">▲ 5.4%</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="floating-card left">
+              <div class="small-label">成交筆數</div>
+              <strong>24.6K</strong>
+              <div class="bar-stack" aria-hidden="true">
+                <span style="height: 18%"></span>
+                <span style="height: 38%"></span>
+                <span style="height: 68%"></span>
+                <span style="height: 54%"></span>
+                <span style="height: 90%"></span>
+                <span style="height: 72%"></span>
+              </div>
+            </div>
+
+            <div class="floating-card right">
+              <div class="small-label">CTR</div>
+              <strong>4.82%</strong>
+              <div class="bar-stack" aria-hidden="true">
+                <span style="height: 24%"></span>
+                <span style="height: 55%"></span>
+                <span style="height: 42%"></span>
+                <span style="height: 76%"></span>
+                <span style="height: 96%"></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="overview" class="section">
+        <div class="container">
+          <div class="section-head">
+            <div>
+              <h2>關鍵數據總覽</h2>
+              <p>即時追蹤品牌成長與行銷效率</p>
+            </div>
+            <a href="#report" class="link-btn">查看詳細報表 →</a>
+          </div>
+
+          <div class="stats-grid">
+            <div class="panel stat-tile">
+              <div class="top">
+                <span>總營收</span>
+                <span>本月</span>
+              </div>
+              <div class="big">NT$ 8.9M</div>
+              <div class="delta">▲ 23.6% vs 上月</div>
+              <div class="spark" aria-hidden="true">
+                <span style="height: 34%"></span>
+                <span style="height: 54%"></span>
+                <span style="height: 42%"></span>
+                <span style="height: 72%"></span>
+                <span style="height: 68%"></span>
+                <span style="height: 100%"></span>
+                <span style="height: 82%"></span>
+                <span style="height: 94%"></span>
+              </div>
+            </div>
+
+            <div class="panel stat-tile">
+              <div class="top">
+                <span>新增會員</span>
+                <span>7天</span>
+              </div>
+              <div class="big">54.8K</div>
+              <div class="delta">▲ 16.2% vs 上週</div>
+              <div class="spark" aria-hidden="true">
+                <span style="height: 24%"></span>
+                <span style="height: 58%"></span>
+                <span style="height: 48%"></span>
+                <span style="height: 66%"></span>
+                <span style="height: 82%"></span>
+                <span style="height: 78%"></span>
+                <span style="height: 100%"></span>
+                <span style="height: 88%"></span>
+              </div>
+            </div>
+
+            <div class="panel stat-tile">
+              <div class="top">
+                <span>影片觀看</span>
+                <span>本週</span>
+              </div>
+              <div class="big">1.1M</div>
+              <div class="delta">▲ 12.8% vs 上週</div>
+              <div class="spark" aria-hidden="true">
+                <span style="height: 18%"></span>
+                <span style="height: 39%"></span>
+                <span style="height: 62%"></span>
+                <span style="height: 54%"></span>
+                <span style="height: 74%"></span>
+                <span style="height: 68%"></span>
+                <span style="height: 92%"></span>
+                <span style="height: 100%"></span>
+              </div>
+            </div>
+
+            <div class="panel stat-tile">
+              <div class="top">
+                <span>轉換率</span>
+                <span>購物頁</span>
+              </div>
+              <div class="big">6.2%</div>
+              <div class="delta">▲ 1.8% vs 上月</div>
+              <div class="spark" aria-hidden="true">
+                <span style="height: 28%"></span>
+                <span style="height: 52%"></span>
+                <span style="height: 48%"></span>
+                <span style="height: 64%"></span>
+                <span style="height: 72%"></span>
+                <span style="height: 78%"></span>
+                <span style="height: 98%"></span>
+                <span style="height: 100%"></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="insights" class="section">
+        <div class="container">
+          <div class="content-grid">
+            <div class="panel overview-panel">
+              <div class="panel-head">
+                <div>
+                  <strong>渠道成效分析</strong>
+                </div>
+                <span class="chip">本季最佳</span>
+              </div>
+
+              <div class="device-list">
+                <div class="device-item">
+                  <span class="muted">Instagram Reels</span>
+                  <strong>38.2%</strong>
+                  <div class="muted">曝光轉換</div>
+                </div>
+                <div class="device-item">
+                  <span class="muted">YouTube Shorts</span>
+                  <strong>31.6%</strong>
+                  <div class="muted">影片互動</div>
+                </div>
+                <div class="device-item">
+                  <span class="muted">TikTok</span>
+                  <strong>26.4%</strong>
+                  <div class="muted">內容瀏覽</div>
+                </div>
+                <div class="device-item">
+                  <span class="muted">Google Ads</span>
+                  <strong>18.7%</strong>
+                  <div class="muted">點擊成效</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="panel overview-panel">
+              <div class="panel-head">
+                <div>
+                  <strong>潛力成長</strong>
+                </div>
+                <span class="chip">+14.9%</span>
+              </div>
+
+              <div class="circle-wrap">
+                <svg viewBox="0 0 220 220" aria-hidden="true">
+                  <defs>
+                    <linearGradient id="gradientRing" x1="0%" x2="100%" y1="0%" y2="100%">
+                      <stop offset="0%" stop-color="#6ee7ff"/>
+                      <stop offset="100%" stop-color="#7c9cff"/>
+                    </linearGradient>
+                  </defs>
+                  <circle class="circle-track" cx="110" cy="110" r="70"></circle>
+                  <circle class="circle-progress" cx="110" cy="110" r="70"></circle>
+                </svg>
+                <div class="circle-center">
+                  <strong>84%</strong>
+                  <span>潛力達成</span>
+                </div>
+              </div>
+
+              <div class="list-block">
+                <div class="list-item">
+                  <div class="meta">
+                    <div class="avatar a">A</div>
+                    <div>
+                      <div>新客獲客</div>
+                      <em>+22.4%</em>
+                    </div>
+                  </div>
+                  <strong>4.8K</strong>
+                </div>
+
+                <div class="list-item">
+                  <div class="meta">
+                    <div class="avatar b">B</div>
+                    <div>
+                      <div>影片購買</div>
+                      <em>+18.7%</em>
+                    </div>
+                  </div>
+                  <strong>2.3K</strong>
+                </div>
+
+                <div class="list-item">
+                  <div class="meta">
+                    <div class="avatar c">C</div>
+                    <div>
+                      <div>高價品類</div>
+                      <em>+11.3%</em>
+                    </div>
+                  </div>
+                  <strong>1.6K</strong>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="products" class="section">
+        <div class="container">
+          <div class="section-head">
+            <div>
+              <h2>熱門商品排行</h2>
+              <p>影片內容帶動的高轉化產品類目</p>
+            </div>
+            <a href="#campaign" class="link-btn">查看全部商品 →</a>
+          </div>
+
+          <div class="products">
+            <article class="panel product-card">
+              <div class="product-visual"></div>
+              <div class="product-body">
+                <div class="tag-row">
+                  <span class="badge">限時熱賣</span>
+                  <span>8.9k 觀看</span>
+                </div>
+                <h3>智慧健身追蹤器</h3>
+                <div class="meta-row">
+                  <span>轉化率 7.8%</span>
+                  <span class="price">NT$ 2,490</span>
+                </div>
+              </div>
+            </article>
+
+            <article class="panel product-card">
+              <div class="product-visual" style="background: radial-gradient(circle at top left, rgba(255,255,255,0.28), transparent 22%), linear-gradient(135deg, #213a42, #101d28);"></div>
+              <div class="product-body">
+                <div class="tag-row">
+                  <span class="badge">推薦款</span>
+                  <span>6.3k 觀看</span>
+                </div>
+                <h3>無線降噪耳機</h3>
+                <div class="meta-row">
+                  <span>轉化率 6.9%</span>
+                  <span class="price">NT$ 3,990</span>
+                </div>
+              </div>
+            </article>
+
+            <article class="panel product-card">
+              <div class="product-visual" style="background: radial-gradient(circle at top left, rgba(255,255,255,0.28), transparent 22%), linear-gradient(135deg, #2d2f4a, #0d1326);"></div>
+              <div class="product-body">
+                <div class="tag-row">
+                  <span class="badge">爆款</span>
+                  <span>5.7k 觀看</span>
+                </div>
+                <h3>智能桌面風扇</h3>
+                <div class="meta-row">
+                  <span>轉化率 5.5%</span>
+                  <span class="price">NT$ 1,890</span>
+                </div>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section id="campaign" class="section">
+        <div class="container">
+          <div class="cta-banner">
+            <div>
+              <span class="eyebrow">Campaign Dashboard</span>
+              <h3>把每段影片轉成可追蹤的營收節奏。</h3>
+              <p>
+                從內容投放到訂單成交，整合行銷數據與商品效益，讓團隊更快找出高回報內容與關鍵買點。
+              </p>
+              <div class="hero-actions">
+                <a href="#report" class="btn btn-primary">立即導出報告</a>
+                <a href="#overview" class="btn btn-secondary">瞭解成效</a>
+              </div>
+            </div>
+
+            <div class="cta-side">
+              <div class="mini-graph">
+                <svg viewBox="0 0 300 160" preserveAspectRatio="none" aria-hidden="true">
+                  <defs>
+                    <linearGradient id="graphLine" x1="0%" x2="100%" y1="0%" y2="0%">
+                      <stop offset="0%" stop-color="#6ee7ff"/>
+                      <stop offset="100%" stop-color="#7c9cff"/>
+                    </linearGradient>
+                  </defs>
+                  <path d="M0,116 C20,102, 58,86, 78,92 S120,58, 150,66 S190,40, 220,48 S268,20, 300,30 L300,160 L0,160 Z" fill="rgba(110,231,255,0.08)"></path>
+                  <path d="M0,116 C20,102, 58,86, 78,92 S120,58, 150,66 S190,40, 220,48 S268,20, 300,30" fill="none" stroke="url(#graphLine)" stroke-width="4" stroke-linecap="round"></path>
+                </svg>
+                <div class="meta-row" style="margin-top: 8px;">
+                  <span>營收成長</span>
+                  <strong style="color: var(--text);">+41.8%</strong>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer id="report">
+      <div class="container" style="display:flex; justify-content:space-between; align-items:center; gap:12px; flex-wrap: wrap;">
+        <div>DataPulse © 2026</div>
+        <div>品牌成長數據平台</div>
+      </div>
+    </footer>
+  </body>
+</html>
